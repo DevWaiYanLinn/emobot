@@ -81,7 +81,7 @@ export default function Emotion() {
 
         try {
             const serverApi = 'https://waiyanlynn-fast-api-emotion.hf.space/api/emotions'
-            const localApi =  'http://192.168.99.139:8000/api/emotions'
+            const localApi = 'http://192.168.99.139:8000/api/emotions'
             const res = await fetch(serverApi, {
                 method: "post",
                 body: formData,
@@ -105,9 +105,9 @@ export default function Emotion() {
                 return { x, y, w, h }
             })
             setRetangle(retangle)
-            setFaces((prev: any) => ({ ...prev, data: faces, status: 'SUCCESS', message: null }))
+            setFaces({ data: faces, status: 'SUCCESS', message: null })
         } catch (error: any) {
-            setFaces((prev: any) => ({ ...prev, data: [], status: 'ERROR', message: error?.message || 'Unknown Error' }))
+            setFaces({ data: [], status: 'ERROR', message: error?.message || 'Unknown Error' })
         }
     }, [])
 
@@ -122,25 +122,25 @@ export default function Emotion() {
 
     return <Screen>
         <ScrollView>
-        <View style={{ width: '100%', marginVertical: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <View style={[{ position: 'relative' }, resizeImg]}>
-                <Retangle retangle={retangle} />
-                <Image source={params.uri}
-                    style={{ width: '100%', height: '100%' }}
-                    contentFit="cover"
-                    transition={1000} placeholder={'image'}></Image>
-            </View>
-        </View>
-        {faces.status === 'PENDING' ? <Text style={{ color: 'white', textAlign: 'center' }}>{faces.message}</Text> : null}
-        {faces.status === 'ERROR' ? <Text style={{ color: 'red', textAlign: 'center' }}>{faces.message}</Text> : null}
-        {faces.data.map((data: any, i: any) => {
-            return <View style={styles.table} key={i}>
-                <View style={styles.row}>
-                    <Text style={[styles.cell, { color: '#77a6b6' }]}>{'Face ' + (1 + i)}</Text>
+            <View style={{ width: '100%', marginVertical: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <View style={[{ position: 'relative' }, resizeImg]}>
+                    <Retangle retangle={retangle} />
+                    <Image source={params.uri}
+                        style={{ width: '100%', height: '100%' }}
+                        contentFit="cover"
+                        transition={1000} placeholder={'image'}></Image>
                 </View>
-                <EmotionResult data={data['emotion']} />
             </View>
-        })}
+            {faces.status === 'PENDING' ? <Text style={{ color: 'white', textAlign: 'center' }}>{faces.message}</Text> : null}
+            {faces.status === 'ERROR' ? <Text style={{ color: 'red', textAlign: 'center' }}>{faces.message}</Text> : null}
+            {faces.data.map((data: any, i: any) => {
+                return <View style={styles.table} key={i}>
+                    <View style={styles.row}>
+                        <Text style={[styles.cell, { color: '#77a6b6' }]}>{'Face ' + (1 + i)}</Text>
+                    </View>
+                    <EmotionResult data={data['emotion']} />
+                </View>
+            })}
         </ScrollView>
     </Screen>
 }
