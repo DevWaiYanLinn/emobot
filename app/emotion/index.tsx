@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const Retangle = memo(function ({ retangle }: any) {
-    return retangle.map((r: any, i: number) => {
+const Retangle = memo(function ({ retangle }: { retangle: Retangle[] }) {
+    return retangle.map((r, i: number) => {
         return <View key={i}>
             <View style={
                 {
@@ -51,26 +51,27 @@ const Retangle = memo(function ({ retangle }: any) {
 
 })
 
-const EmotionResult = memo(function ({ data }: any) {
+const EmotionResult = memo(function ({ data }: { data: Emotion }) {
     return Object.entries(data)
-        .sort((a: any, b: any) => b[1] - a[1])
-        .map(([key, value]: any) => {
+        .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
+        .map(([key, value]: [string, number]) => {
             return <View key={key} style={styles.row}>
                 <Text style={styles.cell}>{key}</Text>
-                <Text style={styles.cell}>{Number(value).toFixed(2) + '%'}</Text>
+                <Text style={styles.cell}>{value.toFixed(2) + '%'}</Text>
             </View>
         })
 })
 
+
 export default function Emotion() {
-    const [retangle, setRetangle] = useState([]);
+    const [retangle, setRetangle] = useState<Retangle[]>([]);
+    const [faces, setFaces] = useState<Faces>({ data: [], status: 'PENDING', message: 'Detecting....' })
     const params = useLocalSearchParams()
-    const [faces, setFaces] = useState<any>({ data: [], status: 'PENDING', message: 'Detecting....' })
     const resizeImg = useMemo(() => {
         return { width: 250, height: (250 / Number(params.width)) * Number(params.height) }
     }, [])
 
-    const fetchData = useCallback(async ({ signal }: any) => {
+    const fetchData = useCallback(async ({ signal }: { signal: AbortSignal }) => {
         const formData = new FormData();
         formData.append('file', {
             uri: params.uri,
@@ -97,13 +98,15 @@ export default function Emotion() {
             }
 
             const [imgW, imgH] = [Number(params.width), Number(params.height)]
-            const retangle = faces.map((d: any) => {
+
+            const retangle = faces.map((d: FaceData) => {
                 const x = ((resizeImg.width / imgW) * d.region.x)
                 const y = ((resizeImg.height / imgH) * d.region.y)
                 const w = ((resizeImg.width / imgW) * d.region.w)
                 const h = ((resizeImg.height / imgH) * d.region.h)
                 return { x, y, w, h }
             })
+
             setRetangle(retangle)
             setFaces({ data: faces, status: 'SUCCESS', message: null })
         } catch (error: any) {
@@ -133,12 +136,12 @@ export default function Emotion() {
             </View>
             {faces.status === 'PENDING' ? <Text style={{ color: 'white', textAlign: 'center' }}>{faces.message}</Text> : null}
             {faces.status === 'ERROR' ? <Text style={{ color: 'red', textAlign: 'center' }}>{faces.message}</Text> : null}
-            {faces.data.map((data: any, i: any) => {
+            {faces.data.map((data: FaceData, i: number) => {
                 return <View style={styles.table} key={i}>
                     <View style={styles.row}>
                         <Text style={[styles.cell, { color: '#77a6b6' }]}>{'Face ' + (1 + i)}</Text>
                     </View>
-                    <EmotionResult data={data['emotion']} />
+                    <EmotionResult data={data.emotion} />
                 </View>
             })}
         </ScrollView>
