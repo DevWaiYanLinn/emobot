@@ -1,0 +1,31 @@
+{
+  "language": "English",
+  "screens": {
+    "home": {
+      "title": "Home Screen",
+      "text": {
+        "EmoBot AI Emotion Detector": "EmoBot AI Emotion Detector",
+        "What are you waiting for?": "What are you waiting for?",
+        "Recent Images": "Recent Images"
+      }
+    },
+    "emotion": {
+      "title": "Emotion Screen",
+      "text": {
+        "angry": "angry",
+        "sad": "sad",
+        "neutral": "netural",
+        "fear": "fear",
+        "happy": "happy",
+        "disgust": "disgust",
+        "surprise": "suprise",
+        "face": "face"
+      }
+    },
+    "setting": {
+      "text": {
+        "language": "Language"
+      }
+    }
+  }
+}

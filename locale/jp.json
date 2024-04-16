@@ -1,0 +1,31 @@
+{
+  "language": "Japan",
+  "screens": {
+    "home": {
+      "title": "Home Screen",
+      "text": {
+        "EmoBot AI Emotion Detector": "EmoBot AI 感情検出器",
+        "What are you waiting for?": "何を待っていますか？",
+        "Recent Images": "最近の画像"
+      }
+    },
+    "emotion": {
+      "title": "Emotion Screen",
+      "text": {
+        "angry": "怒り",
+        "sad": "悲しい",
+        "neutral": "中性",
+        "fear": "恐れ",
+        "happy": "嬉しい",
+        "disgust": "嫌悪",
+        "surprise": "驚き",
+        "face": "顔"
+      }
+    },
+    "setting":{
+      "text" :{
+       "language":"言語"
+      }
+   }
+  }
+}

@@ -1,11 +1,3 @@
-import Screen from "@/components/Screen";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Switch, Text, View } from "react-native";
-import Markdown from 'react-native-markdown-display';
-
-
-const markdonText = `
 # EmoBot - Emotion Detection & Camera App
 
 **Description:**
@@ -29,27 +21,3 @@ Experience the future of photography with EmoBot - where emotions come to life t
 **GitHub Repository:** [EmoBot GitHub Repository](https://github.com/DevWaiYanLinn/emobot)
 
 *Note: For the latest updates and contributions, visit our GitHub repository. Feel free to contribute, provide feedback, or report any issues to help us enhance your EmoBot experience.*
-`
-
-
-export default function Setting() {
-    const { i18n } = useTranslation();
-    const [isEnabled, setIsEnabled] = useState(() => {
-        return i18n.language !== 'en'
-    });
-    const toggleSwitch = () => {
-        i18n.changeLanguage(!isEnabled ? 'jp' : 'en')
-        setIsEnabled(prev => !prev)
-    };
-    return <Screen>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 0.2, borderBlockColor: 'white' }}>
-            <Text style={{ color: 'white', fontSize: 15 }}>Japanese</Text>
-            <Switch
-                trackColor={{ false: '#767577', true: 'green' }}
-                thumbColor={'white'}
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-            />
-        </View>
-    </Screen>
-}

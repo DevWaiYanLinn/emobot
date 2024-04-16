@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native"
 const styles = StyleSheet.create({
     feature: {
         marginHorizontal: -10,
-        marginTop: 30,
+        marginTop: 20,
         flexDirection: 'row',
         display: 'flex',
         justifyContent: 'center',

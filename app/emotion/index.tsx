@@ -3,6 +3,8 @@ import { Image } from "expo-image";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Text, StyleSheet, View, ScrollView } from "react-native";
 import { useLocalSearchParams, } from "expo-router";
+import { useTranslation } from "react-i18next";
+import LottieView from "lottie-react-native";
 
 const styles = StyleSheet.create({
     table: {
@@ -52,23 +54,30 @@ const Retangle = memo(function ({ retangle }: { retangle: Retangle[] }) {
 })
 
 const EmotionResult = memo(function ({ data }: { data: Emotion }) {
+    const { t } = useTranslation()
     return Object.entries(data)
         .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
         .map(([key, value]: [string, number]) => {
             return <View key={key} style={styles.row}>
-                <Text style={styles.cell}>{key}</Text>
+                <Text style={styles.cell}>{t('screens.emotion.text.' + key)}</Text>
                 <Text style={styles.cell}>{value.toFixed(2) + '%'}</Text>
             </View>
         })
 })
 
 
+const Detect = function () {
+    return <LottieView style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1 }} autoPlay loop source={require('@/lottie/scanning.json')}></LottieView>
+}
+
+
 export default function Emotion() {
     const [retangle, setRetangle] = useState<Retangle[]>([]);
+    const { t } = useTranslation()
     const [faces, setFaces] = useState<Faces>({ data: [], status: 'PENDING', message: 'Detecting....' })
     const params = useLocalSearchParams()
     const resizeImg = useMemo(() => {
-        return { width: 250, height: (250 / Number(params.width)) * Number(params.height) }
+        return { width: 200, height: (200 / Number(params.width)) * Number(params.height) }
     }, [])
 
     const fetchData = useCallback(async ({ signal }: { signal: AbortSignal }) => {
@@ -124,22 +133,22 @@ export default function Emotion() {
     }, [])
 
     return <Screen>
-        <ScrollView>
-            <View style={{ width: '100%', marginVertical: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                <View style={[{ position: 'relative' }, resizeImg]}>
-                    <Retangle retangle={retangle} />
-                    <Image source={params.uri}
-                        style={{ width: '100%', height: '100%' }}
-                        contentFit="cover"
-                        transition={1000} placeholder={'image'}></Image>
-                </View>
+        <View style={{ width: '100%', marginVertical: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={[{ position: 'relative' }, resizeImg]}>
+                <Retangle retangle={retangle} />
+                {faces.status === 'PENDING'  ?  <Detect/>: null}
+                <Image source={params.uri}
+                    style={{ width: '100%', height: '100%' }}
+                    contentFit="cover"
+                    transition={1000} placeholder={'image'}></Image>
             </View>
-            {faces.status === 'PENDING' ? <Text style={{ color: 'white', textAlign: 'center' }}>{faces.message}</Text> : null}
-            {faces.status === 'ERROR' ? <Text style={{ color: 'red', textAlign: 'center' }}>{faces.message}</Text> : null}
+        </View>
+        {faces.status === 'ERROR' ? <Text style={{ color: 'red', textAlign: 'center' }}>{faces.message}</Text> : null}
+        <ScrollView>
             {faces.data.map((data: FaceData, i: number) => {
                 return <View style={styles.table} key={i}>
                     <View style={styles.row}>
-                        <Text style={[styles.cell, { color: '#77a6b6' }]}>{'Face ' + (1 + i)}</Text>
+                        <Text style={[styles.cell, { color: '#77a6b6' }]}>{t('screens.emotion.text.face') + ' ' + (1 + i)}</Text>
                     </View>
                     <EmotionResult data={data.emotion} />
                 </View>
