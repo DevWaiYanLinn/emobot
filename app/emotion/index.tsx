@@ -66,7 +66,7 @@ const EmotionResult = memo(function ({ data }: { data: Emotion }) {
 })
 
 
-const Detect = function () {
+const Scanner = function () {
     return <LottieView style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1 }} autoPlay loop source={require('@/lottie/scanning.json')}></LottieView>
 }
 
@@ -116,8 +116,12 @@ export default function Emotion() {
                 return { x, y, w, h }
             })
 
-            setRetangle(retangle)
-            setFaces({ data: faces, status: 'SUCCESS', message: null })
+            if (faces.length) {
+                setRetangle(retangle)
+                setFaces({ data: faces, status: 'SUCCESS', message: null })
+            } else {
+                setFaces({ data: [], status: 'ERROR', message: 'No Face' })
+            }
         } catch (error: any) {
             setFaces({ data: [], status: 'ERROR', message: error?.message || 'Unknown Error' })
         }
@@ -136,7 +140,7 @@ export default function Emotion() {
         <View style={{ width: '100%', marginVertical: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <View style={[{ position: 'relative' }, resizeImg]}>
                 <Retangle retangle={retangle} />
-                {faces.status === 'PENDING'  ?  <Detect/>: null}
+                {faces.status === 'PENDING' ? <Scanner /> : null}
                 <Image source={params.uri}
                     style={{ width: '100%', height: '100%' }}
                     contentFit="cover"

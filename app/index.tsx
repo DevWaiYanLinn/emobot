@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { manipulateAsync, SaveFormat, SaveOptions } from 'expo-image-manipulator';
 import { useRouter } from "expo-router";
 import { Camera } from 'expo-camera';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback} from "react";
 import { Ionicons } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
 import RecentImage from "@/components/custom/RecentImage";
@@ -32,7 +32,8 @@ export default function App() {
     const pickImage = useCallback(async function () {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsMultipleSelection: false
+            allowsMultipleSelection: false,
+            quality:1
         });
 
         if (!result.canceled) {
