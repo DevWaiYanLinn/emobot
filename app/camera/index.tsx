@@ -61,7 +61,7 @@ export default function Camera() {
         if (cameraRef?.current) {
             const picture = await cameraRef.current.takePictureAsync()
             cameraRef.current.pausePreview()
-            const compress = await manipulateAsync(picture.uri, [{ resize: { width: picture.width / 0.7 } }], { format: SaveFormat.PNG, compress: 0.7 });
+            const compress = await manipulateAsync(picture.uri, [{ resize: { width: 300 } }], { format: SaveFormat.PNG, compress: 0.9 });
             const baseURL = '/emotion';
             const params = new URLSearchParams({ uri: compress.uri, width: `${compress.width}`, height: `${compress.height}` });
             const url = `${baseURL}?${params}`;

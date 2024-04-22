@@ -17,10 +17,10 @@ const languageDetectorPlugin = {
                 if (language) {
                     //if language was stored before, use this language in the app
                     return callback(language);
-                } else {
+                } 
                     //if language was not stored yet, use english
+                    
                     return callback('en');
-                }
             });
         } catch (error) {
             console.log("Error reading language", error);
