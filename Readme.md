@@ -1,5 +1,6 @@
 # EmoBot - Emotion Detection & Camera App
-![WHite Corporate Digital Mobile Get In Touch Instagram Story (1)](https://github.com/DevWaiYanLinn/emobot/assets/134668458/746d79f1-4110-4d27-a23b-6114599f640e)
+![WHite Corporate Digital Mobile Get In Touch Instagram Story (3)](https://github.com/DevWaiYanLinn/emobot/assets/134668458/27d9a82d-524b-463c-9104-c4a5a8196b67)
+
 
 
 **Description:**
