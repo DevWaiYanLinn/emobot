@@ -1,18 +1,18 @@
 import Screen from "@/components/Screen";
 import { View } from "@/components/Themed";
-import { Pressable, RefreshControl, ScrollView, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import { Image } from 'expo-image';
 import TypoGraphy from "@/components/custom/TypoGraphy";
 import * as ImagePicker from 'expo-image-picker';
-import { manipulateAsync, SaveFormat, SaveOptions } from 'expo-image-manipulator';
 import { useRouter } from "expo-router";
 import { Camera } from 'expo-camera';
-import { useCallback} from "react";
+import { useCallback } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
 import RecentImage from "@/components/custom/RecentImage";
 import Feature from "@/components/custom/Feature";
 import { useTranslation } from 'react-i18next';
+import { manipulateAsync } from "expo-image-manipulator";
 
 
 const styles = StyleSheet.create({
@@ -33,7 +33,7 @@ export default function App() {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsMultipleSelection: false,
-            quality:1
+            quality: 1
         });
 
         if (!result.canceled) {
@@ -41,18 +41,25 @@ export default function App() {
         }
     }, [])
 
-    const handleCamera = useCallback(function () {
+    const handleCamera = useCallback(async function () {
+
         if (cameraPermission?.status !== 'granted') {
-            requestCameraPermission()
+            await requestCameraPermission()
         }
-        router.navigate('/camera')
+        const result = await ImagePicker.launchCameraAsync({
+            quality: 1,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            aspect:[4,3]
+        })
+        if (!result.canceled) {
+           const image = await manipulateAsync(result.assets[0].uri)
+           postImage(image)       
+        }
     }, [])
 
     const postImage = useCallback(async (image: MediaLibrary.Asset | ImagePicker.ImagePickerAsset) => {
-        const saveOptions: SaveOptions = { format: SaveFormat.PNG, compress: 0.9 };
-        const manipulateImg = await manipulateAsync(image.uri, [{ resize: { width: 300 } }], saveOptions);
         const baseURL = '/emotion';
-        const params = new URLSearchParams({ uri: manipulateImg.uri, width: `${manipulateImg.width}`, height: `${manipulateImg.height}` });
+        const params = new URLSearchParams({ uri: image.uri, width: `${image.width}`, height: `${image.height}` });
         const url = `${baseURL}?${params}`;
         router.navigate(url)
     }, [])

@@ -5,6 +5,8 @@ import { Text, StyleSheet, View, ScrollView } from "react-native";
 import { useLocalSearchParams, } from "expo-router";
 import { useTranslation } from "react-i18next";
 import LottieView from "lottie-react-native";
+import { manipulateAsync, SaveFormat, SaveOptions } from 'expo-image-manipulator';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
     table: {
@@ -82,8 +84,10 @@ export default function Emotion() {
 
     const fetchData = useCallback(async ({ signal }: { signal: AbortSignal }) => {
         const formData = new FormData();
+        const saveOptions: SaveOptions = { format: SaveFormat.PNG, compress: 0.9 };
+        const image = await manipulateAsync(params.uri as string, [{ resize: { width: 300 } }], saveOptions);
         formData.append('file', {
-            uri: params.uri,
+            uri: image.uri,
             type: 'image/jpeg',
             name: 'photo.jpeg',
             signal
@@ -106,13 +110,12 @@ export default function Emotion() {
                 throw Error('Not Faces')
             }
 
-            const [imgW, imgH] = [Number(params.width), Number(params.height)]
 
             const retangle = faces.map((d: FaceData) => {
-                const x = ((resizeImg.width / imgW) * d.region.x)
-                const y = ((resizeImg.height / imgH) * d.region.y)
-                const w = ((resizeImg.width / imgW) * d.region.w)
-                const h = ((resizeImg.height / imgH) * d.region.h)
+                const x = ((resizeImg.width / image.width) * d.region.x)
+                const y = ((resizeImg.height / image.height) * d.region.y)
+                const w = ((resizeImg.width / image.width) * d.region.w)
+                const h = ((resizeImg.height / image.height) * d.region.h)
                 return { x, y, w, h }
             })
 
@@ -120,7 +123,7 @@ export default function Emotion() {
                 setRetangle(retangle)
                 setFaces({ data: faces, status: 'SUCCESS', message: null })
             } else {
-                setFaces({ data: [], status: 'ERROR', message: 'No Face' })
+                setFaces({ data: [], status: 'ERROR', message: 'No detect face' })
             }
         } catch (error: any) {
             setFaces({ data: [], status: 'ERROR', message: error?.message || 'Unknown Error' })
@@ -147,7 +150,11 @@ export default function Emotion() {
                     transition={1000} placeholder={'image'}></Image>
             </View>
         </View>
-        {faces.status === 'ERROR' ? <Text style={{ color: 'red', textAlign: 'center' }}>{faces.message}</Text> : null}
+        {faces.status === 'ERROR' ? <View style={{ flexDirection: 'column', justifyContent: "center", alignItems: 'center' }}>
+            <FontAwesome5 name="smile" size={35} color="red" />
+            <View style={{height:10}}></View>
+            <Text style={{ color: 'red', textAlign: 'center', fontSize: 20 }}>{faces.message}</Text>
+        </View> : null}
         <ScrollView>
             {faces.data.map((data: FaceData, i: number) => {
                 return <View style={styles.table} key={i}>
