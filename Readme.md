@@ -1,4 +1,7 @@
 # EmoBot - Emotion Detection & Camera App
+![WHite Corporate Digital Mobile Get In Touch Instagram Story (3)](https://github.com/DevWaiYanLinn/emobot/assets/134668458/27d9a82d-524b-463c-9104-c4a5a8196b67)
+
+
 
 **Description:**
 EmoBot is a cutting-edge emotion detection and camera application designed to bring a new dimension to your photo capturing experience. Powered by Python backend and crafted with React Native for Android, EmoBot offers unparalleled features that cater to both fun and functionality.
