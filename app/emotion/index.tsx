@@ -1,7 +1,7 @@
 import Screen from "@/components/Screen";
 import { Image } from "expo-image";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { Text, StyleSheet, View, ScrollView, FlatList } from "react-native";
+import { Text, StyleSheet, View, ScrollView } from "react-native";
 import { useLocalSearchParams, } from "expo-router";
 import { useTranslation } from "react-i18next";
 import LottieView from "lottie-react-native";
@@ -88,8 +88,8 @@ export default function Emotion() {
         const image = await manipulateAsync(params.uri as string, [{ resize: { width: 300 } }], saveOptions);
         formData.append('file', {
             uri: image.uri,
-            type: 'image/jpeg',
-            name: 'photo.jpeg',
+            type: 'image/png',
+            name: 'photo.png',
             signal
         } as any)
 
@@ -109,7 +109,6 @@ export default function Emotion() {
             if (!res.ok) {
                 throw Error('Not Faces')
             }
-
 
             const retangle = faces.map((d: FaceData) => {
                 const x = ((resizeImg.width / image.width) * d.region.x)
