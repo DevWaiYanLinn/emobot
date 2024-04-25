@@ -49,11 +49,11 @@ export default function App() {
         const result = await ImagePicker.launchCameraAsync({
             quality: 1,
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            aspect:[4,3]
+            aspect: [4, 3]
         })
-        if (!result.canceled) {
-           const image = await manipulateAsync(result.assets[0].uri)
-           postImage(image)       
+        if (result && !result.canceled) {
+            const image = await manipulateAsync(result.assets[0].uri)
+            postImage(image)
         }
     }, [])
 
@@ -69,7 +69,7 @@ export default function App() {
             <Image
                 source={require('../assets/logo/emoBot.png')}
                 style={{ width: 130, height: 130 }}
-                transition={1000}
+                transition={500}
                 placeholder={'emo-bot'} />
             <Pressable onPress={() => { router.push('/setting/') }}>
                 <Ionicons name="settings-outline" size={30} color="white" style={{ margin: 10 }} />

@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native"
 const styles = StyleSheet.create({
     feature: {
         marginHorizontal: -10,
-        marginTop: 20,
+        marginTop: 10,
         flexDirection: 'row',
         display: 'flex',
         justifyContent: 'center',
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default memo(({ handleCamera, pickImage }: { handleCamera: () => void, pickImage: () => void }) => {
+export default memo((
+    { handleCamera, pickImage }: { handleCamera: () => void, pickImage: () => void }) => {
     return <View style={styles.feature}>
         <TouchableOpacity onPress={handleCamera} style={styles.button}>
             <View style={[styles.buttonStyle, { backgroundColor: '#4d7298' }]}>

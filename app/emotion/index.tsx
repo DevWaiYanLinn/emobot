@@ -1,7 +1,7 @@
 import Screen from "@/components/Screen";
 import { Image } from "expo-image";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
+import { Text, StyleSheet, View, ScrollView, FlatList } from "react-native";
 import { useLocalSearchParams, } from "expo-router";
 import { useTranslation } from "react-i18next";
 import LottieView from "lottie-react-native";
@@ -152,7 +152,7 @@ export default function Emotion() {
         </View>
         {faces.status === 'ERROR' ? <View style={{ flexDirection: 'column', justifyContent: "center", alignItems: 'center' }}>
             <FontAwesome5 name="smile" size={35} color="red" />
-            <View style={{height:10}}></View>
+            <View style={{ height: 10 }}></View>
             <Text style={{ color: 'red', textAlign: 'center', fontSize: 20 }}>{faces.message}</Text>
         </View> : null}
         <ScrollView>
