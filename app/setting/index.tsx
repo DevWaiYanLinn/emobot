@@ -1,4 +1,4 @@
-import Screen from "@/components/Screen";
+import Screen from "@/components/custom/Screen";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Switch, Text, View } from "react-native";

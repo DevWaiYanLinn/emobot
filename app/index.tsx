@@ -1,4 +1,4 @@
-import Screen from "@/components/Screen";
+import Screen from "@/components/custom/Screen";
 import { View } from "@/components/Themed";
 import { Pressable, StyleSheet } from "react-native";
 import { Image } from 'expo-image';

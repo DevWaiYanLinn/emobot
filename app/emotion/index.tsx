@@ -1,4 +1,4 @@
-import Screen from "@/components/Screen";
+import Screen from "@/components/custom/Screen";
 import { Image } from "expo-image";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Text, StyleSheet, View, ScrollView } from "react-native";
@@ -29,27 +29,19 @@ const styles = StyleSheet.create({
 
 const Retangle = memo(function ({ retangle }: { retangle: Retangle[] }) {
     return retangle.map((r, i: number) => {
-        return <View key={i}>
-            <View style={
-                {
-                    position: 'absolute',
-                    top: r.y - 20,
-                    left: r.x,
-                    zIndex: 1
-                }}>
-                <Text style={{ color: 'cyan' }}>{i + 1}</Text>
-            </View>
-            <View style={
-                {
-                    position: 'absolute',
-                    top: r.y,
-                    left: r.x,
-                    width: r.w,
-                    height: r.h,
-                    borderWidth: 1,
-                    borderColor: 'cyan',
-                    zIndex: 1
-                }}></View>
+        return <View key={i} style={
+            {
+                position: 'absolute',
+                top: r.y,
+                left: r.x,
+                width: r.w,
+                height: r.h,
+                borderWidth: 1,
+                borderColor: 'cyan',
+                zIndex: 1,
+                paddingHorizontal: 10
+            }}>
+            <Text style={{ color: 'cyan' }}>{i + 1}</Text>
         </View>
     })
 
@@ -107,7 +99,7 @@ export default function Emotion() {
             const faces = await res.json()
 
             if (!res.ok) {
-                throw Error('Not Faces')
+                throw Error('Face detection fail')
             }
 
             const retangle = faces.map((d: FaceData) => {
