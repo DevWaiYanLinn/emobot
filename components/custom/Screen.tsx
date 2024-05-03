@@ -10,9 +10,9 @@ const style = StyleSheet.create({
     }
 })
 
-export default memo(({ children }: { children: React.ReactNode }) => {
+export default ({ children }: { children: React.ReactNode }) => {
     return <SafeAreaView style={style.container}>
         <StatusBar barStyle={'light-content'} />
         {children}
     </SafeAreaView>
-})
+}

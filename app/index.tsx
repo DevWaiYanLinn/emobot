@@ -14,14 +14,12 @@ import Feature from "@/components/custom/Feature";
 import { useTranslation } from 'react-i18next';
 import { manipulateAsync } from "expo-image-manipulator";
 
-
 const styles = StyleSheet.create({
     logoContainer: {
         backgroundColor: 'transparent',
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-
 })
 
 export default function App() {
@@ -35,14 +33,12 @@ export default function App() {
             allowsMultipleSelection: false,
             quality: 1
         });
-
         if (!result.canceled) {
             postImage(result.assets[0])
         }
     }, [])
 
     const handleCamera = useCallback(async function () {
-
         if (cameraPermission?.status !== 'granted') {
             await requestCameraPermission()
         }
@@ -51,7 +47,7 @@ export default function App() {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             aspect: [4, 3]
         })
-        if (result && !result.canceled) {
+        if (!result.canceled) {
             const image = await manipulateAsync(result.assets[0].uri)
             postImage(image)
         }

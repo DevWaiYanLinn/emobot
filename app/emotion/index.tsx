@@ -64,7 +64,6 @@ const Scanner = function () {
     return <LottieView style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1 }} autoPlay loop source={require('@/lottie/scanning.json')}></LottieView>
 }
 
-
 export default function Emotion() {
     const [retangle, setRetangle] = useState<Retangle[]>([]);
     const { t } = useTranslation()
@@ -95,13 +94,10 @@ export default function Emotion() {
                     'Content-Type': 'multipart/form-data',
                 }
             })
-
             const faces = await res.json()
-
             if (!res.ok) {
                 throw Error('Face detection fail')
             }
-
             const retangle = faces.map((d: FaceData) => {
                 const x = ((resizeImg.width / image.width) * d.region.x)
                 const y = ((resizeImg.height / image.height) * d.region.y)
@@ -109,7 +105,6 @@ export default function Emotion() {
                 const h = ((resizeImg.height / image.height) * d.region.h)
                 return { x, y, w, h }
             })
-
             if (faces.length) {
                 setRetangle(retangle)
                 setFaces({ data: faces, status: 'SUCCESS', message: null })

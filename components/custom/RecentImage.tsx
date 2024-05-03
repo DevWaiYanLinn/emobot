@@ -1,21 +1,16 @@
 import { memo, useCallback, useEffect, useState } from "react"
-import { Pressable, RefreshControl, ScrollView, StyleSheet, View, FlatList } from "react-native"
+import { Pressable, StyleSheet, View, FlatList } from "react-native"
 import * as MediaLibrary from 'expo-media-library';
 import { Image } from "expo-image";
 import * as ImagePicker from 'expo-image-picker';
+import Box from "./Box";
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
     imageBox: {
         padding: 10,
         width: '33.33%',
     },
-
 })
 
 export default memo(({ postImage }: { postImage: (image: MediaLibrary.Asset | ImagePicker.ImagePickerAsset) => void }) => {
@@ -55,14 +50,14 @@ export default memo(({ postImage }: { postImage: (image: MediaLibrary.Asset | Im
         keyExtractor={item => item.id}
         data={photos}
         renderItem={
-            ({ item }) => <View style={styles.imageBox}>
-                <Pressable style={{ width: '100%' }} onPress={() => { postImage(item) }}>
+            ({ item }) => <Pressable style={styles.imageBox} onPress={() => { postImage(item) }}>
+                <Box>
                     <Image source={item.uri}
-                        style={{ width: '100%', height: 100 }}
+                        style={{ width: '100%', height: '100%' }}
                         contentFit="cover"
-                        transition={300} placeholder={'image'}></Image>
-                </Pressable>
-            </View>
+                        transition={100} placeholder={'image'}></Image>
+                </Box>
+            </Pressable>
         } />
 })
 
