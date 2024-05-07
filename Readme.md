@@ -19,7 +19,7 @@ EmoBot is a cutting-edge emotion detection application designed to bring a new d
 3. EmoBot will automatically detect and analyze the emotions of each face within the photo.
 4. View the detailed emotion feedback for each detected face, including happiness, sadness, anger, surprise, and more.
 
-**API Repository:** [Powered By Fast Api, RetinaFace And Using Transfer Learning Model ](https://github.com/DevWaiYanLinn/face-expression-api)
+**API Repository:** [Powered By Python](https://github.com/DevWaiYanLinn/face-expression-api)
 
 **APP Repository:** [Powered By React Native](https://github.com/DevWaiYanLinn/emobot)
 
