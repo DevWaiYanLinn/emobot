@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default memo(({ children, style }: { children: React.ReactNode, style?: StyleProp<ViewStyle> }) => {
+const Box = memo(({ children, style }: { children: React.ReactNode, style?: StyleProp<ViewStyle> }) => {
     return <View style={style}>
         <View style={styles.box}>
             <View style={styles.child}>
@@ -29,3 +29,5 @@ export default memo(({ children, style }: { children: React.ReactNode, style?: S
         </View>
     </View>
 })
+
+export default Box

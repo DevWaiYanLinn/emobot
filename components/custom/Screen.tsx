@@ -10,9 +10,11 @@ const style = StyleSheet.create({
     }
 })
 
-export default ({ children }: { children: React.ReactNode }) => {
+const Screen = ({ children }: { children: React.ReactNode }) => {
     return <SafeAreaView style={style.container}>
         <StatusBar barStyle={'light-content'} />
         {children}
     </SafeAreaView>
 }
+
+export default Screen

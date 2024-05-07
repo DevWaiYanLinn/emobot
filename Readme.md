@@ -1,10 +1,10 @@
-# EmoBot - Emotion Detection & Camera App
+# EmoBot - Emotion Detection App
 ![WHite Corporate Digital Mobile Get In Touch Instagram Story (3)](https://github.com/DevWaiYanLinn/emobot/assets/134668458/27d9a82d-524b-463c-9104-c4a5a8196b67)
 
 
 
 **Description:**
-EmoBot is a cutting-edge emotion detection and camera application designed to bring a new dimension to your photo capturing experience. Powered by Python backend and crafted with React Native for Android, EmoBot offers unparalleled features that cater to both fun and functionality.
+EmoBot is a cutting-edge emotion detection application designed to bring a new dimension to your photo capturing experience. Powered by Python backend and crafted with React Native for Android.
 
 **Key Features:**
 - **Multi-Face Emotion Detection:** EmoBot employs advanced facial recognition technology to detect multiple faces within a photo. With lightning-fast processing, it accurately analyzes each face and reveals the emotions portrayed.
@@ -17,10 +17,9 @@ EmoBot is a cutting-edge emotion detection and camera application designed to br
 2. Capture a photo containing faces you want to analyze.
 3. EmoBot will automatically detect and analyze the emotions of each face within the photo.
 4. View the detailed emotion feedback for each detected face, including happiness, sadness, anger, surprise, and more.
-5. Share your emotionally enriched photos with friends and family, or save them for later.
 
-Experience the future of photography with EmoBot - where emotions come to life through the lens of innovation. Download now and explore the fascinating world of emotion detection technology!
+**GitHub Repository:** [EmoBot](https://github.com/DevWaiYanLinn/emobot)
 
-**GitHub Repository:** [EmoBot GitHub Repository](https://github.com/DevWaiYanLinn/emobot)
+**Alternative Repository:** [EmoBot using flutter](https://github.com/DevWaiYanLinn/emo-bot-flutter-version)
 
 *Note: For the latest updates and contributions, visit our GitHub repository. Feel free to contribute, provide feedback, or report any issues to help us enhance your EmoBot experience.*

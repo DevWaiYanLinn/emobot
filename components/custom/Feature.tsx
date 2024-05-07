@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default memo((
+const Feature = memo((
     { handleCamera, pickImage }: { handleCamera: () => void, pickImage: () => void }) => {
     return <View style={styles.feature}>
         <TouchableOpacity style={styles.touchable} onPress={handleCamera}>
@@ -36,3 +36,5 @@ export default memo((
         </TouchableOpacity>
     </View>
 })
+
+export default Feature

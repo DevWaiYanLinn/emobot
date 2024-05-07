@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
 })
 
-export default memo(({ postImage }: { postImage: (image: MediaLibrary.Asset | ImagePicker.ImagePickerAsset) => void }) => {
+const RecentImage = memo(({ postImage }: { postImage: (image: MediaLibrary.Asset | ImagePicker.ImagePickerAsset) => void }) => {
     const [photos, setPhotos] = useState<Array<MediaLibrary.Asset>>([]);
     const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
     const [refreshing, setRefreshing] = useState(false);
@@ -60,6 +60,9 @@ export default memo(({ postImage }: { postImage: (image: MediaLibrary.Asset | Im
             </Pressable>
         } />
 })
+
+
+export default RecentImage
 
 
 // return <ScrollView refreshControl={
